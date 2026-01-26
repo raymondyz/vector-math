@@ -1,0 +1,19 @@
+{
+  "name": "vector-math",
+  "version": "0.1.0",
+  "description": "Lightweight immutable vector math utilities for physics simulations",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
