@@ -1,14 +1,18 @@
 {
-  "name": "vector-math",
-  "version": "0.1.0",
+  "name": "@raymondz/vector-math",
+  "version": "0.1.1",
   "description": "Lightweight immutable vector math utilities for physics simulations",
-  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raymondyz/vector-math.git"
+  },
+  "keywords": ["vector", "math", "typescript", "physics", "immutable"],
+  "homepage": "https://github.com/raymondyz/vector-math#readme",
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist"
