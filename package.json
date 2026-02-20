@@ -1,6 +1,6 @@
 {
   "name": "@raymondz/vector-math",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Lightweight immutable vector math utilities for physics simulations",
   "type": "module",
@@ -25,7 +25,6 @@
     "build": "tsc",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run clean && npm run build"
-
   },
   "devDependencies": {
     "typescript": "^5.0.0"
