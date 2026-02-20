@@ -8,16 +8,8 @@ export class Utils {
     return Math.max(min, Math.min(max, x));
   }
 
-  static clampMag<T extends VecBase<T>>(v: T, max: number): T {
-    const mag = v.mag();
-    if (mag > max) {
-      return v.scale(max/mag);
-    }
-    return v;
-  }
-
-  static dist<T extends VecBase<T>>(v1: T, v2: T): number {
-    return v1.sub(v2).mag();
+  static dist<T extends VecBase<T>>(v1: Readonly<T>, v2: Readonly<T>): number {
+    return v1.clone().sub(v2).mag();
   }
 
   static randFloat(min: number, max: number): number {

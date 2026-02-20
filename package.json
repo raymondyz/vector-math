@@ -1,6 +1,7 @@
 {
   "name": "@raymondz/vector-math",
   "version": "0.1.2",
+  "private": false,
   "description": "Lightweight immutable vector math utilities for physics simulations",
   "type": "module",
   "main": "./dist/index.js",
@@ -17,8 +18,7 @@
     "vector",
     "math",
     "typescript",
-    "physics",
-    "immutable"
+    "physics"
   ],
   "homepage": "https://github.com/raymondyz/vector-math#readme",
   "scripts": {

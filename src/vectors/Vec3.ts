@@ -1,18 +1,9 @@
 import { VecBase } from "./VecBase";
 
 export class Vec3 extends VecBase<Vec3> {
-  public static readonly ZERO = new Vec3(0, 0, 0);
-  public static readonly ONE = new Vec3(1, 1, 1);
-  public static readonly UNIT_X = new Vec3(1, 0, 0);
-  public static readonly UNIT_Y = new Vec3(0, 1, 0);
-  public static readonly UNIT_Z = new Vec3(0, 0, 1);
-  public static readonly NEG_X = new Vec3(-1, 0, 0);
-  public static readonly NEG_Y = new Vec3(0, -1, 0);
-  public static readonly NEG_Z = new Vec3(0, 0, -1);
-
-  public readonly x: number;
-  public readonly y: number;
-  public readonly z: number;
+  public x: number;
+  public y: number;
+  public z: number;
 
   constructor(x?: number, y?: number, z?: number) {
     super();
@@ -23,46 +14,80 @@ export class Vec3 extends VecBase<Vec3> {
 
   // Required methods
 
-  clone(): Vec3 {
+  clone(this: Readonly<Vec3>): Vec3 {
     return new Vec3(this.x, this.y, this.z);
   }
 
-  add(v: Vec3): Vec3 {
-    return new Vec3(this.x + v.x, this.y + v.y, this.z + v.z);
+  copy(this: Vec3, v: Readonly<Vec3>): Vec3 {
+    this.x = v.x;
+    this.y = v.y;
+    this.z = v.z;
+    return this;
   }
 
-  scale(s: number): Vec3 {
-    return new Vec3(s * this.x, s * this.y, s * this.z);
+  addScaled(this: Vec3, v: Readonly<Vec3>, s: number): Vec3 {
+    this.x += v.x * s;
+    this.y += v.y * s;
+    this.z += v.z * s;
+    return this;
   }
 
-  dot(v: Vec3): number {
+  scale(this: Vec3, s: number): Vec3 {
+    this.x *= s;
+    this.y *= s;
+    this.z *= s;
+    return this;
+  }
+
+  dot(this: Readonly<Vec3>, v: Readonly<Vec3>): number {
     return this.x * v.x + this.y * v.y + this.z * v.z;
   }
 
-  toString(): string {
+  toString(this: Readonly<Vec3>): string {
     return `Vec3(${this.x.toFixed(3)}, ${this.y.toFixed(3)}, ${this.z.toFixed(3)})`;
   }
 
   // Additional methods
 
-  rotateX(theta: number): Vec3 {
+  rotateX(this: Vec3, theta: number): Vec3 {
     const x = this.x;
     const y = this.y * Math.cos(theta) - this.z * Math.sin(theta);
     const z = this.y * Math.sin(theta) + this.z * Math.cos(theta);
-    return new Vec3(x, y, z);
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    return this;
   }
 
-  rotateY(theta: number): Vec3 {
+  rotatedX(this: Readonly<Vec3>, theta: number): Vec3 {
+    return this.clone().rotateX(theta);
+  }
+
+  rotateY(this: Vec3, theta: number): Vec3 {
     const x = this.x * Math.cos(theta) + this.z * Math.sin(theta);
     const y = this.y;
     const z = -this.x * Math.sin(theta) + this.z * Math.cos(theta);
-    return new Vec3(x, y, z);
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    return this;
   }
 
-  rotateZ(theta: number): Vec3 {
-    const x = this.x * Math.cos(theta) - this.z * Math.sin(theta);
-    const y = this.x * Math.sin(theta) + this.z * Math.cos(theta);
+  rotatedY(this: Readonly<Vec3>, theta: number): Vec3 {
+    return this.clone().rotateY(theta);
+  }
+
+  rotateZ(this: Vec3, theta: number): Vec3 {
+    const x = this.x * Math.cos(theta) - this.y * Math.sin(theta);
+    const y = this.x * Math.sin(theta) + this.y * Math.cos(theta);
     const z = this.z;
-    return new Vec3(x, y, z);
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    return this;
+  }
+
+  rotatedZ(this: Readonly<Vec3>, theta: number): Vec3 {
+    return this.clone().rotateZ(theta);
   }
 }

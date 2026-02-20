@@ -1,41 +1,92 @@
 export abstract class VecBase<T extends VecBase<T>> {
-  abstract clone(): T;
-  abstract add(v: T): T;
-  abstract scale(s: number): T;
-  abstract dot(v: T): number;
-  abstract toString(): string;
+  abstract clone(this: Readonly<T>): T;
+  abstract copy(this: T, v: Readonly<T>): T;
+  abstract addScaled(this: T, v: Readonly<T>, s: number): T;
+  abstract scale(this: T, s: number): T;
+  abstract dot(this: Readonly<T>, v: Readonly<T>): number;
+  abstract toString(this: Readonly<T>): string;
 
-  neg(): T {
-    return this.scale(-1);
+  scaled(this: Readonly<T>, s: number): T {
+    return this.clone().scale(s);
   }
 
-  sub(v: T): T {
-    return this.add(v.neg());
+  addedScaled(this: Readonly<T>, v: Readonly<T>, s: number): T {
+    return this.clone().addScaled(v, s);
   }
 
-  addScaled(v: T, s: number): T {
-    return this.add(v.scale(s));
+  neg(this: T): T {
+    this.scale(-1);
+    return this;
   }
 
-  magSq(): number {
-    return this.dot(this as unknown as T);
+  negated(this: Readonly<T>): T {
+    return this.clone().neg();
   }
 
-  mag(): number {
+  add(this: T, v: Readonly<T>): T {
+    this.addScaled(v, 1);
+    return this;
+  }
+
+  added(this: Readonly<T>, v: Readonly<T>): T {
+    return this.clone().add(v);
+  }
+
+  sub(this: T, v: Readonly<T>): T {
+    this.addScaled(v, -1);
+    return this;
+  }
+
+  subbed(this: Readonly<T>, v: Readonly<T>): T {
+    return this.clone().sub(v);
+  }
+
+  magSq(this: Readonly<T>): number {
+    return this.dot(this);
+  }
+
+  mag(this: Readonly<T>): number {
     return Math.sqrt(this.magSq());
   }
 
-  normalize(): T {
+  normalize(this: T): T {
     const m = this.mag();
-    return (m === 0) ? (this as unknown as T) : this.scale(1/m);
+    if (m === 0) {
+      return this;
+    }
+    this.scale(1/m);
+    return this;
   }
 
-  proj(u: T): T {
+  proj(this: T, u: Readonly<T>): T {
     const mSq = u.magSq();
-    return (mSq === 0) ? u.scale(0) : u.scale(this.dot(u) / mSq);
+    if (mSq === 0) {
+      this.scale(0);
+      return this;
+    }
+
+    const s = this.dot(u) / mSq;
+    this.copy(u).scale(s);
+    return this;
   }
 
-  print(): void {
+  projected(this: Readonly<T>, u: Readonly<T>): T {
+    return this.clone().proj(u);
+  }
+
+  clampMag(this: T, max: number): T {
+    const mag = this.mag();
+    if (mag > max) {
+      this.scale(max/mag);
+    }
+    return this;
+  }
+
+  clampedMag(this: Readonly<T>, max: number): T {
+    return this.clone().clampMag(max);
+  }
+
+  print(this: Readonly<T>): void {
     console.log(this.toString())
   }
 }
