@@ -23,7 +23,9 @@
   "homepage": "https://github.com/raymondyz/vector-math#readme",
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+
   },
   "devDependencies": {
     "typescript": "^5.0.0"
