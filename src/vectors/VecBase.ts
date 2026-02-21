@@ -58,6 +58,10 @@ export abstract class VecBase<T extends VecBase<T>> {
     return this;
   }
 
+  normalized(this: Readonly<T>): T {
+    return this.clone().normalize();
+  }
+
   proj(this: T, u: Readonly<T>): T {
     const mSq = u.magSq();
     if (mSq === 0) {
