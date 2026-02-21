@@ -99,4 +99,18 @@ export class Vec3 extends VecBase<Vec3> {
   rotatedZ(this: Readonly<Vec3>, theta: number): Vec3 {
     return this.clone().rotateZ(theta);
   }
+
+  cross(this: Vec3, other: Readonly<Vec3>): Vec3 {
+    const x = this.y * other.z - this.z * other.y;
+    const y = this.z * other.x - this.x * other.z;
+    const z = this.x * other.y - this.y * other.x;
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    return this;
+  }
+
+  crossed(this: Readonly<Vec3>, other: Readonly<Vec3>): Vec3 {
+    return this.clone().cross(other);
+  }
 }
