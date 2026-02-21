@@ -91,6 +91,6 @@ export abstract class VecBase<T extends VecBase<T>> {
   }
 
   print(this: Readonly<T>): void {
-    console.log(this.toString())
+    console.log(this.toString());
   }
 }

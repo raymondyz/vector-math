@@ -1,6 +1,15 @@
 import { VecBase } from "./VecBase";
 
 export class Vec3 extends VecBase<Vec3> {
+  public static ZERO(): Vec3 {return new Vec3(0, 0, 0)}
+  public static ONE(): Vec3 {return new Vec3(1, 1, 1)}
+  public static UNIT_X(): Vec3 {return new Vec3(1, 0, 0)}
+  public static UNIT_Y(): Vec3 {return new Vec3(0, 1, 0)}
+  public static UNIT_Z(): Vec3 {return new Vec3(0, 0, 1)}
+  public static NEG_X(): Vec3 {return new Vec3(-1, 0, 0)}
+  public static NEG_Y(): Vec3 {return new Vec3(0, -1, 0)}
+  public static NEG_Z(): Vec3 {return new Vec3(0, 0, -1)}
+
   public x: number;
   public y: number;
   public z: number;
